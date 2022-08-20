@@ -35,6 +35,10 @@ public class Human : HPObject
     // Update is called once per frame
     void Update()
     {
+        if (isDead)
+        {
+            return;
+        }
         damageTimer += Time.deltaTime;
 
         if (Mathf.Abs( transform.position.x) <= info.attackRange)
@@ -88,6 +92,12 @@ public class Human : HPObject
         }
     }
 
+   public void kill()
+    {
+        isDead = true;
+        transform.DOKill();
+    }
+
     public override void die()
     {
         transform.DOKill();
@@ -95,7 +105,7 @@ public class Human : HPObject
         base.die();
         EnemyGeneratorManager.Instance.removeEnemy(gameObject);
 
-        ResourceManager.Instance.changeAmount(info.dropItem, info.dropAmount);
+        ResourceManager.Instance.changeAmount(info.dropItem, info.dropAmount*( Random.Range(1,4)));
 
         Destroy(gameObject);
     }

@@ -10,10 +10,14 @@ public class MonsterManager : HPObject
     public List<ArmJoint> lockedArmJoints;
     public List<ArmJoint> unlockedArmJoints;
     public List<EyeJoint> lockedEyeJoints;
-    public List<ArmJoint> unlockedEyeJoints;
+    public List<EyeJoint> unlockedEyeJoints;
     public List<MouthJoint> lockedMouthJoints;
-    public List<ArmJoint> unlockedMouthJoints;
+    public List<MouthJoint> unlockedMouthJoints;
+    public List<AntennaJoint> lockedAntennaJoints;
+
+    public List<GameObject> bodys;
     bool hasMouth = false;
+    public bool hasAtenna = false;
     public void upgrade(MonsterUpgradeInfo info)
     {
         Debug.Log("buy " + info.upgradeName);
@@ -28,8 +32,8 @@ public class MonsterManager : HPObject
                 }
                 else
                 {
-                    joint3 = lockedArmJoints[ lockedArmJoints.Count-1];
-                    //joint3 = lockedArmJoints[Random.Range(0, lockedArmJoints.Count)];
+                    //joint3 = lockedArmJoints[ lockedArmJoints.Count-1];
+                    joint3 = lockedArmJoints[Random.Range(0, lockedArmJoints.Count)];
 
                 }
                 joint3.init();
@@ -57,13 +61,49 @@ public class MonsterManager : HPObject
                 joint.init();
                 lockedEyeJoints.Remove(joint);
                 break;
+
+            case "Improve Eye":
+                var joint5 = unlockedEyeJoints[Random.Range(0, unlockedEyeJoints.Count)];
+                joint5.upgrade();
+                if (joint5.atMaxLevel())
+                {
+                    unlockedEyeJoints.Remove(joint5);
+                }
+                break;
             case "Add Mouth":
                 var joint2 = lockedMouthJoints[Random.Range(0, lockedMouthJoints.Count)];
                 joint2.init();
                 lockedMouthJoints.Remove(joint2);
                 hasMouth = true;
                 break;
-                
+
+            case "Improve Mouth":
+                var joint6 = unlockedMouthJoints[Random.Range(0, unlockedMouthJoints.Count)];
+                joint6.upgrade();
+                if (joint6.atMaxLevel())
+                {
+                    unlockedMouthJoints.Remove(joint6);
+                }
+                break;
+
+            case "Add Antenna":
+                var joint7 = lockedAntennaJoints[Random.Range(0, lockedAntennaJoints.Count)];
+                joint7.init();
+                lockedAntennaJoints.Remove(joint7);
+                hasAtenna = true;
+                break;
+            case "Add Body":
+                bodys[info.currentLevel].SetActive(true);
+                var body = bodys[info.currentLevel];
+                lockedArmJoints.AddRange(body.GetComponentsInChildren<ArmJoint>());
+                UpgradeMonsterManager.Instance.monsterUpgradeDict["Add Arm"].maxLevel += body.GetComponentsInChildren<ArmJoint>().Length;
+                lockedEyeJoints.AddRange(body.GetComponentsInChildren<EyeJoint>());
+                UpgradeMonsterManager.Instance.monsterUpgradeDict["Add Eye"].maxLevel += body.GetComponentsInChildren<EyeJoint>().Length;
+                lockedMouthJoints.AddRange(body.GetComponentsInChildren<MouthJoint>());
+                UpgradeMonsterManager.Instance.monsterUpgradeDict["Add Mouth"].maxLevel += body.GetComponentsInChildren<MouthJoint>().Length;
+                lockedAntennaJoints.AddRange(body.GetComponentsInChildren<AntennaJoint>());
+                UpgradeMonsterManager.Instance.monsterUpgradeDict["Add Antenna"].maxLevel += body.GetComponentsInChildren<AntennaJoint>().Length;
+                break;
             default:
                 Debug.LogError("not support buy");
                 break;
@@ -79,6 +119,7 @@ public class MonsterManager : HPObject
         lockedArmJoints = GetComponentsInChildren<ArmJoint>().ToList();
         lockedEyeJoints = GetComponentsInChildren<EyeJoint>().ToList();
         lockedMouthJoints = GetComponentsInChildren<MouthJoint>().ToList();
+        lockedAntennaJoints = GetComponentsInChildren<AntennaJoint>().ToList();
         unlockedArmJoints = new List<ArmJoint>();
     }
 

@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameLoopManager : Singleton<GameLoopManager>
 {
-    bool isInBuildMode = false;
+    public  bool isInBuildMode = false;
     public MonsterManager monster;
     // Start is called before the first frame update
     void Start()

@@ -14,6 +14,8 @@ public class ArmJoint : MonoBehaviour
     public float rotateTime = 5f;
     public bool OnRight = true;
 
+    public ArmJoint parentJoint;
+
     GameObject armObject;
 
     public int level = 0;
@@ -23,50 +25,32 @@ public class ArmJoint : MonoBehaviour
     }
     public void init()
     {
-        var parentJoint = transform.parent.parent.GetComponent<ArmJoint>();
+        parentJoint = transform.parent.parent.GetComponent<ArmJoint>();
         if (parentJoint)
         {
             depth = parentJoint.depth + 1;
         }
 
-        if (!OnRight)
-        {
-            transform.localScale = new Vector3(1, -1, 1);
-        }
+        //if (!OnRight)
+        //{
+        //    transform.localScale = new Vector3(1, -1, 1);
+        //}
         armObject = Instantiate(armPrefabs[0], transform.position, transform.rotation, transform);
         armObject.GetComponent<Arm>().init(level,depth);
+        armObject.GetComponentInChildren<ControlByPlayer>().armjoint = this;
+        if (parentJoint)
+        {
+            armObject.GetComponentInChildren<ControlByPlayer>().parent = parentJoint.GetComponentInChildren<ControlByPlayer>();
+            parentJoint.GetComponentInChildren<ControlByPlayer>().child = armObject.GetComponentInChildren<ControlByPlayer>();
+        }
     }
 
     public void upgrade()
     {
-        //transform.GetChild(0) arm in the joint
-        //transform.GetChild(0).GetChild(0) arm joint in lower layer
-        //transform.GetChild(0).GetChild(0) arm render in lower layer
-
-
-
-        //var childJoint = transform.GetChild(0).GetChild(1);
-
-        //childJoint.parent = null;
-        //Destroy(transform.GetChild(0).gameObject);
-        //level++;
-        //init();
-        //StartCoroutine(test(childJoint));
 
         level++;
         GetComponentInChildren<Arm>().init(level, depth);
     }
-
-    //IEnumerator test(Transform childJoint)
-    //{
-    //    yield return new WaitForSeconds(0.1f);
-    //    //remove new added joint
-    //    var jointPosition = transform.GetChild(0).GetChild(1).localPosition;
-    //    Destroy(transform.GetChild(0).GetChild(1).gameObject);
-    //    //move old joint under new added child
-    //    childJoint.parent = transform.GetChild(0);
-    //    childJoint.transform.localPosition = jointPosition;
-    //}
 
     public bool atMaxLevel()
     {
@@ -75,38 +59,30 @@ public class ArmJoint : MonoBehaviour
 
 
 
-    void addAllArms()
-    {
-        //Destroy(transform.GetChild(0).gameObject);
-
-        var parentJoint = transform.parent.parent.GetComponent<ArmJoint>();
-        if (parentJoint)
-        {
-            depth = parentJoint.depth + 1;
-        }
-        if (depth >= armPrefabs.Length)
-        {
-            return;
-        }
-
-
-        if (!OnRight)
-        {
-            transform.localScale = new Vector3(1, -1, 1);
-        }
-
-        var go = Instantiate(armPrefabs[depth], transform.position, transform.rotation, transform);
-    }
-
     // Start is called before the first frame update
     void Start()
     {
 
-        transform.DOLocalRotate(new Vector3(0, 0, endRotation), rotateTime).SetLoops(-1, LoopType.Yoyo);
+       // transform.DOLocalRotate(new Vector3(0, 0, endRotation), rotateTime).SetLoops(-1, LoopType.Yoyo);
     }
+    public float speed = 5;
+
+    
 
     // Update is called once per frame
     void Update()
     {
+        transform.rotation = Quaternion.Euler(0f, 0f, (endRotation - startRotation) / 2 * Mathf.Sin(Time.time * speed* speedScale) + startRotation + (endRotation - startRotation) / 2);
+    }
+    float controlSpeed = 2;
+    float normalSpeed = 1;
+    float speedScale = 1;
+    public void speedUP()
+    {
+        speedScale = controlSpeed;
+    }
+    public void speedDown()
+    {
+        speedScale = normalSpeed;
     }
 }

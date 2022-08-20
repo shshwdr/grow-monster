@@ -6,6 +6,8 @@ public class EyeJoint : MonoBehaviour
 {
     public GameObject[] eyePrefabs;
     public bool OnRight = true;
+    int currentLevel = 0;
+    int maxLevel = 2;
     public void init()
     {
 
@@ -14,5 +16,15 @@ public class EyeJoint : MonoBehaviour
             transform.localScale = new Vector3(-1, 1, 1);
         }
         var go = Instantiate(eyePrefabs[0], transform.position, transform.rotation, transform);
+    }
+
+
+    public void upgrade()
+    {
+        GetComponent<Mouth>().upgrade();
+    }
+    public bool atMaxLevel()
+    {
+        return currentLevel >= maxLevel;
     }
 }

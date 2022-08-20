@@ -53,3 +53,4 @@ MonoBehaviour:
   rotateTime: 3
   OnRight: 1
   level: 0
+  speed: 2
