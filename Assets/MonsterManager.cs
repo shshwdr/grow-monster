@@ -89,6 +89,7 @@ public class MonsterManager : HPObject
     public void  restoreFromBattle()
     {
         currentHP = maxhp;
+        isDead = false;
         EventPool.Trigger<float, float>("changeHP", currentHP, maxhp);
     }
 

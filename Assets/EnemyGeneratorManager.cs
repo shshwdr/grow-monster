@@ -1,3 +1,4 @@
+using Pool;
 using Sinbad;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ public class EnemyGeneratorManager : Singleton<EnemyGeneratorManager>
     public GameObject enemyPrefab;
 
     public float generateDistance = 5;
-    int currentLevel = 0;
+    public int currentLevel = 0;
 
     List<EnemyGeneratorInfo> enemyGeneratorInfos = new List<EnemyGeneratorInfo>();
 
@@ -28,13 +29,36 @@ public class EnemyGeneratorManager : Singleton<EnemyGeneratorManager>
 
     public void generate()
     {
+        StartCoroutine(generateYield());
+    }
+
+    IEnumerator generateYield()
+    {
+        yield return new WaitForSeconds(0.1f);
         enemies = new List<GameObject>();
         var currentInfo = enemyGeneratorInfos[currentLevel];
-        for (int i = 0;i< currentInfo.villager; i++)
+        for (int i = 0; i < currentInfo.villager; i++)
         {
-            var go = Instantiate(enemyPrefab, transform.position + new Vector3(generateDistance +  Random.Range(-2f,2f), Random.Range(-0.3f, 0.3f), 0), Quaternion.identity);
+            yield return new WaitForSeconds(0.1f);
+            var go = Instantiate(enemyPrefab, transform.position + new Vector3(generateDistance + Random.Range(-2f, 2f), Random.Range(-0.3f, 0.3f), 0), Quaternion.identity);
             generateDistance = -generateDistance;
-            go.GetComponent<Human>(). init("villager");
+            go.GetComponent<Human>().init("villager");
+            enemies.Add(go);
+        }
+        for (int i = 0; i < currentInfo.magic; i++)
+        {
+            yield return new WaitForSeconds(0.1f);
+            var go = Instantiate(enemyPrefab, transform.position + new Vector3(generateDistance + Random.Range(-2f, 2f), Random.Range(-0.3f, 0.3f), 0), Quaternion.identity);
+            generateDistance = -generateDistance;
+            go.GetComponent<Human>().init("magic");
+            enemies.Add(go);
+        }
+        for (int i = 0; i < currentInfo.soldier; i++)
+        {
+            yield return new WaitForSeconds(0.1f);
+            var go = Instantiate(enemyPrefab, transform.position + new Vector3(generateDistance + Random.Range(-2f, 2f), Random.Range(-0.3f, 0.3f), 0), Quaternion.identity);
+            generateDistance = -generateDistance;
+            go.GetComponent<Human>().init("soldier");
             enemies.Add(go);
         }
     }
@@ -45,6 +69,7 @@ public class EnemyGeneratorManager : Singleton<EnemyGeneratorManager>
         if(enemies.Count == 0)
         {
             GameLoopManager.Instance.battleEnd(true);
+            upgradeLevel();
         }
     }
 
@@ -54,6 +79,13 @@ public class EnemyGeneratorManager : Singleton<EnemyGeneratorManager>
         {
             Destroy(enemy);
         }
+    }
+
+    public void upgradeLevel()
+    {
+        currentLevel++;
+        EventPool.Trigger("changeLevel");
+        
     }
 
     // Update is called once per frame

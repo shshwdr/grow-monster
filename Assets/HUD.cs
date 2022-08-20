@@ -8,11 +8,20 @@ public class HUD : MonoBehaviour
 {
 
     public Image hpImage;
+    public Text levelText;
 
     // Start is called before the first frame update
     void Start()
     {
-        EventPool.OptIn<float,float>("changeHP", changeHP);
+        updateLevel();
+        EventPool.OptIn<float, float>("changeHP", changeHP);
+        EventPool.OptIn("changeLevel", updateLevel);
+    }
+
+    void updateLevel()
+    {
+
+        levelText.text = "Level:" + (EnemyGeneratorManager.Instance.currentLevel+1);
     }
 
     void changeHP(float hp,float maxHP)
