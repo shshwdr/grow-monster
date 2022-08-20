@@ -606,7 +606,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &372701339
 PrefabInstance:
@@ -2752,7 +2752,7 @@ RectTransform:
   - {fileID: 758036407}
   - {fileID: 1964675461}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4065,12 +4065,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1048293726}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -377.57748, y: -554.1475, z: 13.045252}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_Father: {fileID: 1597256287}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1048293728
 MonoBehaviour:
@@ -4089,6 +4089,14 @@ MonoBehaviour:
   - {fileID: 8300000, guid: ce50f9bdd18aaa34cb68ba3a2b0529bb, type: 3}
   dieClips:
   - {fileID: 8300000, guid: f43a4aede8bb1f84e8aac84a181b9c40, type: 3}
+  grow: {fileID: 8300000, guid: 57bf056b684012c448f1c5ce4bed5ec1, type: 3}
+  eat: {fileID: 8300000, guid: d94e0e9b65d6c454db604ae953dbfa76, type: 3}
+  humanHitClips:
+  - {fileID: 8300000, guid: f9a3968f0c8471048b9e417cdf0a9818, type: 3}
+  - {fileID: 8300000, guid: df5f0ff12df1560418aa3c068e38b38f, type: 3}
+  monsterGetHitClips:
+  - {fileID: 8300000, guid: 3c837d5423251fb4aa0e5c0a8fa993d9, type: 3}
+  monsterDieClip: {fileID: 8300000, guid: 642bad4e9082fc844ad3de7661235ee1, type: 3}
 --- !u!82 &1048293729
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4282,6 +4290,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1167662394}
   - component: {fileID: 1167662395}
+  - component: {fileID: 1167662396}
   m_Layer: 0
   m_Name: music
   m_TagString: Untagged
@@ -4296,12 +4305,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1167662393}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -377.57748, y: -554.1475, z: 13.045252}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_Father: {fileID: 1597256287}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &1167662395
 AudioSource:
@@ -4314,7 +4323,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 2cd08b89389c7c2458077d8312d7051b, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
@@ -4399,6 +4408,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1167662396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1167662393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db8aa0032102c24db0952f331dee33e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildClip: {fileID: 8300000, guid: 91f50252d88fc844db083b3defb9f5e2, type: 3}
+  battleClip: {fileID: 8300000, guid: 2cd08b89389c7c2458077d8312d7051b, type: 3}
 --- !u!1001 &1210197470
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5179,8 +5202,10 @@ Transform:
   - {fileID: 554630315}
   - {fileID: 1783601565}
   - {fileID: 1527007867}
+  - {fileID: 1167662394}
+  - {fileID: 1048293727}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1701429048
 GameObject:

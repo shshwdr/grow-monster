@@ -10,6 +10,8 @@ public class EnemyInfo
     public float moveSpeed;
     public float attackSpeed;
     public float attackRange;
+    public string dropItem;
+    public int dropAmount;
 
 }
 public class EnemyManager : Singleton<EnemyManager>

@@ -50,9 +50,12 @@ public class Human : HPObject
             {
                 attackTimer = 0;
                 //attack
-                transform.DOShakeRotation(0.3f);
+                //transform.DOShakeRotation(0.3f);
                 Debug.Log("attack!");
-                // transform.DOJump(new Vector3(0, 0, 0), 1, 1, 0.2f);
+                GameLoopManager.Instance.monster.getDamage(info.attack);
+                SFXManager.Instance.playHumanAttackClip();
+                //spriteRender.transform.DOJump(new Vector3(0, 0, 0), 1, 1, 0.2f);
+                spriteRender.transform.DOShakeScale(0.3f);
             }
         }
 
@@ -83,6 +86,9 @@ public class Human : HPObject
         SFXManager.Instance.playDieClip();
         base.die();
         EnemyGeneratorManager.Instance.removeEnemy(gameObject);
+
+        ResourceManager.Instance.changeAmount(info.dropItem, info.dropAmount);
+
         Destroy(gameObject);
     }
 }

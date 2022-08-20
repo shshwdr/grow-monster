@@ -47,12 +47,21 @@ public class UpgradeCell : MonoBehaviour
             //buy item
 
             GameLoopManager.Instance.monster.upgrade(info);
-
+            consumeUpgrade();
 
             EventPool.Trigger("updateUpgradeUI");
         });
     }
 
+
+    void consumeUpgrade()
+    {
+        ResourceManager.Instance.changeAmount(info.resourceNmae1, -info.resourceAmount1);
+        if (info.resourceNmae2.Length > 0)
+        {
+            ResourceManager.Instance.changeAmount(info.resourceNmae2, -info.resourceAmount2);
+        }
+    }
     bool isUpgradable()
     {
         if (ResourceManager.Instance.getAmount(info.resourceNmae1) >= info.resourceAmount1)

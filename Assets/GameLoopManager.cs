@@ -29,6 +29,7 @@ public class GameLoopManager : Singleton<GameLoopManager>
         EventPool.Trigger("updateResource");
         EnemyGeneratorManager.Instance.generate();
         monster.restoreFromBattle();
+        MusicManager.Instance.startBattle();
     }
 
     public void battleEnd(bool win)
@@ -58,6 +59,8 @@ public class GameLoopManager : Singleton<GameLoopManager>
         EventPool.Trigger("updateResource");
         monster.restoreFromBattle();
         EventPool.Trigger("startBuild");
+
+        MusicManager.Instance.startBuild();
     }
 
     public void stopBuildMode()

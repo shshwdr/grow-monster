@@ -7,6 +7,13 @@ public class SFXManager : Singleton<SFXManager>
     public AudioClip[] hitClips;
     public AudioClip[] dieClips;
 
+    public AudioClip grow;
+    public AudioClip eat;
+
+    public AudioClip[] humanHitClips;
+    public AudioClip[] monsterGetHitClips;
+    public AudioClip monsterDieClip;
+
     AudioSource audioSource;
 
     private void Awake()
@@ -21,6 +28,24 @@ public class SFXManager : Singleton<SFXManager>
     public void playDieClip()
     {
         audioSource.PlayOneShot(dieClips[Random.Range(0, dieClips.Length)]);
+    }
+    public void playGrowClip()
+    {
+        audioSource.PlayOneShot(grow);
+    }
+
+
+    public void playHumanAttackClip()
+    {
+        audioSource.PlayOneShot(humanHitClips[Random.Range(0, humanHitClips.Length)]);
+    }
+    public void playMonsterHurtClip()
+    {
+        audioSource.PlayOneShot(monsterGetHitClips[Random.Range(0, monsterGetHitClips.Length)]);
+    }
+    public void playMonsterDieClip()
+    {
+        audioSource.PlayOneShot(monsterDieClip);
     }
 
     // Start is called before the first frame update

@@ -10,10 +10,10 @@ public class MonsterManager : HPObject
     public List<ArmJoint> lockedArmJoints;
     public List<EyeJoint> lockedEyeJoints;
     public List<MouthJoint> lockedMouthJoints;
+    bool hasMouth = false;
     public void upgrade(MonsterUpgradeInfo info)
     {
         Debug.Log("buy " + info.upgradeName);
-        
         switch (info.upgradeName)
         {
             case "Add Arm":
@@ -40,13 +40,14 @@ public class MonsterManager : HPObject
                 var joint2 = lockedMouthJoints[Random.Range(0, lockedMouthJoints.Count)];
                 joint2.init();
                 lockedMouthJoints.Remove(joint2);
+                hasMouth = true;
                 break;
                 
             default:
                 Debug.LogError("not support buy");
                 break;
         }
-
+        SFXManager.Instance.playGrowClip();
         info.currentLevel++;
         
     }
@@ -58,7 +59,6 @@ public class MonsterManager : HPObject
         lockedMouthJoints = GetComponentsInChildren<MouthJoint>().ToList();
     }
 
-   
 
     public override void Start()
     {
@@ -70,12 +70,20 @@ public class MonsterManager : HPObject
     {
         base.die();
         GameLoopManager.Instance.battleEnd(false);
+
+        SFXManager.Instance.playMonsterDieClip();
     }
 
     public override void getDamage(float d)
     {
         base.getDamage(d);
         EventPool.Trigger<float, float>("changeHP", currentHP,maxhp);
+
+        if (hasMouth)
+        {
+
+            SFXManager.Instance.playMonsterHurtClip();
+        }
     }
 
     public void  restoreFromBattle()
