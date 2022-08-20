@@ -179,7 +179,7 @@ MonoBehaviour:
     m_Bottom: 0
   m_ChildAlignment: 0
   m_Spacing: 0
-  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
@@ -201,6 +201,9 @@ MonoBehaviour:
   button: {fileID: 6123159664036794123}
   buttonText: {fileID: 6123159664394303583}
   levelText: {fileID: 5451671197147361856}
+  resources:
+  - {fileID: 8787955484423216938}
+  - {fileID: 8787955485051708324}
 --- !u!1001 &5448607119148494616
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -303,6 +306,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2675147441081433690, guid: 768915ecd8d2d1f49aeb8a1975e10af8, type: 3}
   m_PrefabInstance: {fileID: 5448607119148494616}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8787955484423216938 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3632225380678463538, guid: 768915ecd8d2d1f49aeb8a1975e10af8, type: 3}
+  m_PrefabInstance: {fileID: 5448607119148494616}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8d4e8bc8e37d3c44abd97dd76b4576a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5448607119845397398
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -405,6 +419,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2675147441081433690, guid: 768915ecd8d2d1f49aeb8a1975e10af8, type: 3}
   m_PrefabInstance: {fileID: 5448607119845397398}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8787955485051708324 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3632225380678463538, guid: 768915ecd8d2d1f49aeb8a1975e10af8, type: 3}
+  m_PrefabInstance: {fileID: 5448607119845397398}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8d4e8bc8e37d3c44abd97dd76b4576a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7366205790589019430
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,8 +1,8 @@
-﻿upgradeName,maxLevel,resourceNmae1,resourceAmount1,resourceNmae2,resourceAmount2,increase
-Add Arm,4,meat,10,,,1
-Add Eye,4,magic,10,,,1
-Add Mouth,4,meat,20,bones,10,1
-Add Arm 2,4,meat,100,magic,10,1
-Add Body,1,meat,1000,bones,100,1
-Arm Attack,10,meat,50,,,1
-Eye Attack,10,eye,,,,
+﻿upgradeName,maxLevel,resourceNmae1,resourceAmount1,resourceNmae2,resourceAmount2,increase,hp
+Add Arm,4,meat,10,,,1,10
+Add Eye,4,soul,10,,,1,10
+Add Mouth,4,meat,20,metal,10,1,10
+Add Arm 2,4,meat,100,soul,10,1,10
+Add Body,1,meat,1000,metal,100,1,10
+Arm Attack,10,meat,50,,,1,10
+Eye Attack,10,meat,,,,,

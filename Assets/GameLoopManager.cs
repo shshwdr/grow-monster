@@ -26,6 +26,7 @@ public class GameLoopManager : Singleton<GameLoopManager>
     {
         isInBuildMode = false;
         yield return new WaitForSeconds(0.1f);
+        EventPool.Trigger("updateResource");
         EnemyGeneratorManager.Instance.generate();
         monster.restoreFromBattle();
     }
@@ -54,6 +55,7 @@ public class GameLoopManager : Singleton<GameLoopManager>
     {
         isInBuildMode = true;
         yield return new WaitForSeconds(0.1f);
+        EventPool.Trigger("updateResource");
         monster.restoreFromBattle();
         EventPool.Trigger("startBuild");
     }
