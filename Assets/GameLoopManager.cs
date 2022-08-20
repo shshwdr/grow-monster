@@ -1,0 +1,74 @@
+using Pool;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class GameLoopManager : Singleton<GameLoopManager>
+{
+    bool isInBuildMode = false;
+    public MonsterManager monster;
+    // Start is called before the first frame update
+    void Start()
+    {
+        //start dialogue
+        //start battle
+        //loop:
+        //when battle end, start build mode
+        // when finish build, start battle
+        monster = GameObject.FindObjectOfType<MonsterManager>();
+        //StartCoroutine(startBattleLoop());
+
+        StartCoroutine(startBuildMode());
+    }
+
+    IEnumerator  startBattleLoop()
+    {
+        isInBuildMode = false;
+        yield return new WaitForSeconds(0.1f);
+        EnemyGeneratorManager.Instance.generate();
+        monster.restoreFromBattle();
+    }
+
+    public void battleEnd(bool win)
+    {
+        if (isInBuildMode)
+        {
+            return;
+        }
+        if (win)
+        {
+            MessageMenu.Instance.show("Victory!");
+        }
+        else
+        {
+
+            MessageMenu.Instance.show("Faild!");
+        }
+        EnemyGeneratorManager.Instance.clear();
+        monster.restoreFromBattle();
+        StartCoroutine( startBuildMode());
+    }
+
+    IEnumerator startBuildMode()
+    {
+        isInBuildMode = true;
+        yield return new WaitForSeconds(0.1f);
+        monster.restoreFromBattle();
+        EventPool.Trigger("startBuild");
+    }
+
+    public void stopBuildMode()
+    {
+        StartCoroutine(startBattleLoop());
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+    }
+}
