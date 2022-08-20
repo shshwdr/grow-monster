@@ -8,8 +8,11 @@ public class MonsterManager : HPObject
 {
     public List<ArmJoint> startArmJoints;
     public List<ArmJoint> lockedArmJoints;
+    public List<ArmJoint> unlockedArmJoints;
     public List<EyeJoint> lockedEyeJoints;
+    public List<ArmJoint> unlockedEyeJoints;
     public List<MouthJoint> lockedMouthJoints;
+    public List<ArmJoint> unlockedMouthJoints;
     bool hasMouth = false;
     public void upgrade(MonsterUpgradeInfo info)
     {
@@ -17,18 +20,36 @@ public class MonsterManager : HPObject
         switch (info.upgradeName)
         {
             case "Add Arm":
+                ArmJoint joint3 = null;
                 if (info.currentLevel < 2)
                 {
-                    startArmJoints[info.currentLevel].init();
+                    joint3 = startArmJoints[info.currentLevel];
                     lockedArmJoints.Remove(startArmJoints[info.currentLevel]);
                 }
                 else
                 {
-                    var joint3 = lockedArmJoints[Random.Range(0, lockedArmJoints.Count)];
-                    joint3.init();
+                    joint3 = lockedArmJoints[ lockedArmJoints.Count-1];
+                    //joint3 = lockedArmJoints[Random.Range(0, lockedArmJoints.Count)];
 
-                    lockedArmJoints.Remove(joint3);
                 }
+                joint3.init();
+                lockedArmJoints.Remove(joint3);
+                unlockedArmJoints.Add(joint3);
+                var child = joint3.transform.GetChild(0);
+                var newJoint = child.GetComponentInChildren<ArmJoint>();
+                lockedArmJoints.Add(newJoint);
+
+                UpgradeMonsterManager.Instance.monsterUpgradeDict["Improve Arm"].maxLevel += 2;
+                break;
+            case "Improve Arm":
+                var joint4 = unlockedArmJoints[Random.Range(0, unlockedArmJoints.Count)];
+                joint4.upgrade();
+                if (joint4.atMaxLevel())
+                {
+                    unlockedArmJoints.Remove(joint4);
+                }
+
+                UpgradeMonsterManager.Instance.monsterUpgradeDict["Improve Arm"].maxLevel -= 2;
                 break;
             case "Add Eye":
 
@@ -58,6 +79,7 @@ public class MonsterManager : HPObject
         lockedArmJoints = GetComponentsInChildren<ArmJoint>().ToList();
         lockedEyeJoints = GetComponentsInChildren<EyeJoint>().ToList();
         lockedMouthJoints = GetComponentsInChildren<MouthJoint>().ToList();
+        unlockedArmJoints = new List<ArmJoint>();
     }
 
 

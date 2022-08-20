@@ -45,9 +45,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   armPrefabs:
   - {fileID: 2807825093968282846, guid: a44845b5cd42267439fc3c4e6f0c0ac5, type: 3}
-  - {fileID: 2807825093968282846, guid: bc771eb6a2cdc1145b62a8d1012f4d44, type: 3}
+  - {fileID: 9115743793000179168, guid: 01e1638e21c37d34fb5ad3af7fc6341e, type: 3}
+  - {fileID: 1849263953138030626, guid: b9a94fb0b03d2d14d8319140aadbfa1f, type: 3}
   depth: 0
   startRotation: 0
   endRotation: 90
   rotateTime: 3
   OnRight: 1
+  level: 0

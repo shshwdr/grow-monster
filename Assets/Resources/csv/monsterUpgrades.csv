@@ -1,8 +1,7 @@
 ﻿upgradeName,maxLevel,resourceNmae1,resourcea1,resourceNmae2,resourcea2,increase,hp
 Add Arm,4,meat,5,,,1,5
-Add Eye,4,soul,10,,,1,5
+Add Eye,4,meat,5,soul,10,1,5
 Add Mouth,4,meat,20,metal,10,1,5
-Add Arm 2,4,meat,100,soul,10,1,10
+Improve Arm,0,meat,10,,,1,3
 Add Body,1,meat,1000,metal,100,1,10
-Arm Attack,10,meat,50,,,1,10
-Eye Attack,10,meat,,,,,
+Improve Eye,0,meat,,,,,

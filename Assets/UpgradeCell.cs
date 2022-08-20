@@ -32,7 +32,7 @@ public class UpgradeCell : MonoBehaviour
         {
             resources[1].gameObject.SetActive(false);
         }
-        if (isUpgradable() || CheatManager.Instance.unlimitResource)
+        if (info. isUpgradable() || CheatManager.Instance.unlimitResource)
         {
             button.interactable = true;
         }
@@ -61,23 +61,5 @@ public class UpgradeCell : MonoBehaviour
         {
             ResourceManager.Instance.changeAmount(info.resourceNmae2, -info.resourceAmount2);
         }
-    }
-    bool isUpgradable()
-    {
-        if (ResourceManager.Instance.getAmount(info.resourceNmae1) >= info.resourceAmount1)
-        {
-            if(info.resourceNmae2.Length > 0)
-            {
-                if (ResourceManager.Instance.getAmount(info.resourceNmae2) >= info.resourceAmount2)
-                {
-                    return true;
-                }
-            }
-            else
-            {
-                return true;
-            }
-        }
-        return false;
     }
 }

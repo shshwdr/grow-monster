@@ -14,6 +14,13 @@ public class ArmJoint : MonoBehaviour
     public float rotateTime = 5f;
     public bool OnRight = true;
 
+    GameObject armObject;
+
+    public int level = 0;
+    public int damage()
+    {
+        return level + 1;
+    }
     public void init()
     {
         var parentJoint = transform.parent.parent.GetComponent<ArmJoint>();
@@ -21,16 +28,29 @@ public class ArmJoint : MonoBehaviour
         {
             depth = parentJoint.depth + 1;
         }
-        if (depth >= armPrefabs.Length)
-        {
-            return;
-        }
 
         if (!OnRight)
         {
             transform.localScale = new Vector3(1, -1, 1);
         }
-        var go = Instantiate(armPrefabs[depth], transform.position, transform.rotation, transform);
+        armObject = Instantiate(armPrefabs[level], transform.position, transform.rotation, transform);
+        armObject.GetComponent<Arm>().init(depth);
+    }
+
+    public void upgrade()
+    {
+        var child = transform.GetChild(0).GetChild(0);
+        
+        child.parent = null;
+        Destroy(transform.GetChild(0).gameObject);
+        level++;
+        init();
+        child.parent = transform.GetChild(0);
+    }
+
+    public bool atMaxLevel()
+    {
+        return level == 2;
     }
 
 

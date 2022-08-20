@@ -27,8 +27,22 @@ public class UpgradeMenu : MonoBehaviour
         int i = 0;
         foreach(var item in buildItems)
         {
-            upgradeCells[i].init(item);
-            i++;
+            if (item.isUpgradable())
+            {
+
+                upgradeCells[i].init(item);
+                i++;
+            }
+        }
+
+        foreach (var item in buildItems)
+        {
+            if (!item.isUpgradable())
+            {
+
+                upgradeCells[i].init(item);
+                i++;
+            }
         }
     }
 
