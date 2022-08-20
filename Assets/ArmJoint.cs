@@ -33,20 +33,40 @@ public class ArmJoint : MonoBehaviour
         {
             transform.localScale = new Vector3(1, -1, 1);
         }
-        armObject = Instantiate(armPrefabs[level], transform.position, transform.rotation, transform);
-        armObject.GetComponent<Arm>().init(depth);
+        armObject = Instantiate(armPrefabs[0], transform.position, transform.rotation, transform);
+        armObject.GetComponent<Arm>().init(level,depth);
     }
 
     public void upgrade()
     {
-        var child = transform.GetChild(0).GetChild(0);
-        
-        child.parent = null;
-        Destroy(transform.GetChild(0).gameObject);
+        //transform.GetChild(0) arm in the joint
+        //transform.GetChild(0).GetChild(0) arm joint in lower layer
+        //transform.GetChild(0).GetChild(0) arm render in lower layer
+
+
+
+        //var childJoint = transform.GetChild(0).GetChild(1);
+
+        //childJoint.parent = null;
+        //Destroy(transform.GetChild(0).gameObject);
+        //level++;
+        //init();
+        //StartCoroutine(test(childJoint));
+
         level++;
-        init();
-        child.parent = transform.GetChild(0);
+        GetComponentInChildren<Arm>().init(level, depth);
     }
+
+    //IEnumerator test(Transform childJoint)
+    //{
+    //    yield return new WaitForSeconds(0.1f);
+    //    //remove new added joint
+    //    var jointPosition = transform.GetChild(0).GetChild(1).localPosition;
+    //    Destroy(transform.GetChild(0).GetChild(1).gameObject);
+    //    //move old joint under new added child
+    //    childJoint.parent = transform.GetChild(0);
+    //    childJoint.transform.localPosition = jointPosition;
+    //}
 
     public bool atMaxLevel()
     {

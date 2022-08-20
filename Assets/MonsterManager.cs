@@ -49,7 +49,7 @@ public class MonsterManager : HPObject
                     unlockedArmJoints.Remove(joint4);
                 }
 
-                UpgradeMonsterManager.Instance.monsterUpgradeDict["Improve Arm"].maxLevel -= 2;
+                //UpgradeMonsterManager.Instance.monsterUpgradeDict["Improve Arm"].maxLevel -= 1;
                 break;
             case "Add Eye":
 

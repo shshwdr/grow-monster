@@ -8,16 +8,29 @@ public class Arm : MonoBehaviour
     float damageTimer = 0f;
     public int level;
 
-    public Sprite[] colors;
+    public Sprite[] colors1;
+    public Sprite[] colors2;
+    public Sprite[] colors3;
     // Start is called before the first frame update
     void Start()
     {
         
     }
 
-    public void init(int depth)
+    public void init(int level,int depth)
     {
-        GetComponentInChildren<SpriteRenderer>().sprite = colors[depth % 4];
+        switch(level)
+        {
+            case 0:
+                GetComponentInChildren<SpriteRenderer>().sprite = colors1[depth % 4];
+                break;
+            case 1:
+                GetComponentInChildren<SpriteRenderer>().sprite = colors2[depth % 4];
+                break;
+            case 2:
+                GetComponentInChildren<SpriteRenderer>().sprite = colors3[depth % 4];
+                break;
+        }
     }
 
     // Update is called once per frame

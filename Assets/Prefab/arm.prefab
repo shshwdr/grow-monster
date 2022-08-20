@@ -29,8 +29,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 2830164777451285736}
   - {fileID: 2807825093976527034}
+  - {fileID: 2830164777451285736}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -63,11 +63,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 0
-  colors:
+  colors1:
   - {fileID: 21300000, guid: 954ce25dd78b04440b06186b39be38bf, type: 3}
   - {fileID: 21300000, guid: e628a9f7107cfde44ba709fdf02d24b3, type: 3}
   - {fileID: 21300000, guid: 50acefca1a3bdae4bbf72bdd7fba72fd, type: 3}
   - {fileID: 21300000, guid: 72b7dbcab03e300419d4116177c3709e, type: 3}
+  colors2:
+  - {fileID: 21300000, guid: c13c2989baaf9e94995de8baece7c9af, type: 3}
+  - {fileID: 21300000, guid: 7b2f8e3849cd56e4fb3aad70e5c5d6c1, type: 3}
+  - {fileID: 21300000, guid: 105cd34776a02044a8719dd3c5572d6f, type: 3}
+  - {fileID: 21300000, guid: 0ea40b924cc2c4f41950fd2dea07fbe5, type: 3}
+  colors3:
+  - {fileID: 21300000, guid: 9ea2933490bfb1a48ab08fcee3dc43c1, type: 3}
+  - {fileID: 21300000, guid: 31b09015e80a9d24b98e001550ca4938, type: 3}
+  - {fileID: 21300000, guid: 5df7b7251bb88cb439b84c58c2dceeae, type: 3}
+  - {fileID: 21300000, guid: ab2b2770919c2e647bb3fbd260568bf3, type: 3}
 --- !u!1 &2807825093976527035
 GameObject:
   m_ObjectHideFlags: 0
@@ -97,7 +107,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2807825093968282845}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2807825093976527033
 SpriteRenderer:
@@ -163,11 +173,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 611510395459950891, guid: dc352ab393b6a61438bf9f4a170345f5, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 611510395459950891, guid: dc352ab393b6a61438bf9f4a170345f5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.22
+      value: 0.31
       objectReference: {fileID: 0}
     - target: {fileID: 611510395459950891, guid: dc352ab393b6a61438bf9f4a170345f5, type: 3}
       propertyPath: m_LocalPosition.y
