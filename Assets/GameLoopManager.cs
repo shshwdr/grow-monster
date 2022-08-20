@@ -26,6 +26,7 @@ public class GameLoopManager : Singleton<GameLoopManager>
     {
         isInBuildMode = false;
         yield return new WaitForSeconds(0.1f);
+        EventPool.Trigger("startBattle");
         EventPool.Trigger("updateResource");
         EnemyGeneratorManager.Instance.generate();
         monster.restoreFromBattle();
@@ -41,11 +42,13 @@ public class GameLoopManager : Singleton<GameLoopManager>
         if (win)
         {
             MessageMenu.Instance.show("Victory!");
+            SFXManager.Instance.playMonsterWinClip();
         }
         else
         {
 
             MessageMenu.Instance.show("Faild!");
+            SFXManager.Instance.playHumanWinClip();
         }
         EnemyGeneratorManager.Instance.clear();
         monster.restoreFromBattle();

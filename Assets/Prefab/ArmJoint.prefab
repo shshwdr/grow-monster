@@ -49,5 +49,5 @@ MonoBehaviour:
   depth: 0
   startRotation: 0
   endRotation: 90
-  rotateTime: 5
+  rotateTime: 3
   OnRight: 1

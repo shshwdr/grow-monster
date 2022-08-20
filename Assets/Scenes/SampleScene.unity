@@ -1883,7 +1883,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0.392}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -3099,7 +3099,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -4179,6 +4179,8 @@ MonoBehaviour:
   monsterGetHitClips:
   - {fileID: 8300000, guid: 3c837d5423251fb4aa0e5c0a8fa993d9, type: 3}
   monsterDieClip: {fileID: 8300000, guid: 642bad4e9082fc844ad3de7661235ee1, type: 3}
+  humanWinClip: {fileID: 8300000, guid: e1bb4824efcfb7546b69e3539cf9fffe, type: 3}
+  monsterWinClip: {fileID: 8300000, guid: b87cab9bda0cfea40a951b832c664782, type: 3}
 --- !u!82 &1048293729
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6112,6 +6114,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: eyeJoint (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6876062375003139332, guid: 0f6a8a64334513a4e8c8488869acbf18, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f6a8a64334513a4e8c8488869acbf18, type: 3}
 --- !u!4 &2000803694 stripped
@@ -7008,6 +7014,10 @@ PrefabInstance:
     - target: {fileID: 6876062374738652606, guid: 0f6a8a64334513a4e8c8488869acbf18, type: 3}
       propertyPath: m_Name
       value: eyeJoint
+      objectReference: {fileID: 0}
+    - target: {fileID: 6876062375003139335, guid: 0f6a8a64334513a4e8c8488869acbf18, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f6a8a64334513a4e8c8488869acbf18, type: 3}

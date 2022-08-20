@@ -48,6 +48,7 @@ public class MonsterManager : HPObject
                 break;
         }
         SFXManager.Instance.playGrowClip();
+        maxhp += info.hp;
         info.currentLevel++;
         
     }

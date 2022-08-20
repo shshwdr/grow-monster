@@ -14,6 +14,9 @@ public class SFXManager : Singleton<SFXManager>
     public AudioClip[] monsterGetHitClips;
     public AudioClip monsterDieClip;
 
+    public AudioClip humanWinClip;
+    public AudioClip monsterWinClip;
+
     AudioSource audioSource;
 
     private void Awake()
@@ -46,6 +49,14 @@ public class SFXManager : Singleton<SFXManager>
     public void playMonsterDieClip()
     {
         audioSource.PlayOneShot(monsterDieClip);
+    }
+    public void playHumanWinClip()
+    {
+        audioSource.PlayOneShot(humanWinClip);
+    }
+    public void playMonsterWinClip()
+    {
+        audioSource.PlayOneShot(monsterWinClip);
     }
 
     // Start is called before the first frame update

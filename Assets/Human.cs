@@ -60,23 +60,31 @@ public class Human : HPObject
         }
 
     }
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (damageTimer > damageTime)
-        {
-            damageTimer = 0;
-            getDamage(1);
-        }
-    }
+    //private void OnTriggerStay2D(Collider2D collision)
+    //{
+    //    if(collision.tag == "monsterLine")
+    //    {
+    //        if (damageTimer > damageTime)
+    //        {
+    //            damageTimer = 0;
+    //            getDamage(1);
+    //        }
+    //    }
+    //}
 
     public override void getDamage(float d)
     {
-        base.getDamage(d);
-        animator.SetTrigger("hit");
-        if (!isDead)
+        if (damageTimer > damageTime)
         {
 
-            SFXManager.Instance.playHitClip();
+             damageTimer = 0;
+            base.getDamage(d);
+            animator.SetTrigger("hit");
+            if (!isDead)
+            {
+
+                SFXManager.Instance.playHitClip();
+            }
         }
     }
 

@@ -32,7 +32,7 @@ public class UpgradeCell : MonoBehaviour
         {
             resources[1].gameObject.SetActive(false);
         }
-        if (isUpgradable())
+        if (isUpgradable() || CheatManager.Instance.unlimitResource)
         {
             button.interactable = true;
         }
@@ -46,8 +46,8 @@ public class UpgradeCell : MonoBehaviour
         {
             //buy item
 
-            GameLoopManager.Instance.monster.upgrade(info);
             consumeUpgrade();
+            GameLoopManager.Instance.monster.upgrade(info);
 
             EventPool.Trigger("updateUpgradeUI");
         });

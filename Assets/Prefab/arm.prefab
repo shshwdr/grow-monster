@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2807825093968282845}
   - component: {fileID: 2911871918743301258}
+  - component: {fileID: 7169099019473150840}
   m_Layer: 0
   m_Name: arm
-  m_TagString: Untagged
+  m_TagString: monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -49,6 +50,18 @@ CircleCollider2D:
   m_Offset: {x: 0.18, y: -1.17}
   serializedVersion: 2
   m_Radius: 0.4
+--- !u!114 &7169099019473150840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2807825093968282846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35d4e13c89b85964897f717e8c75edf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2807825093976527035
 GameObject:
   m_ObjectHideFlags: 0
@@ -284,6 +297,10 @@ PrefabInstance:
       propertyPath: startRotation
       value: -30
       objectReference: {fileID: 0}
+    - target: {fileID: 885702637933466765, guid: dc352ab393b6a61438bf9f4a170345f5, type: 3}
+      propertyPath: armPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 2807825093968282846}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc352ab393b6a61438bf9f4a170345f5, type: 3}
 --- !u!4 &2830164777451285736 stripped
