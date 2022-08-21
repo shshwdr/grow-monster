@@ -21,7 +21,7 @@ public class EyeJoint : MonoBehaviour
 
     public void upgrade()
     {
-        GetComponent<Mouth>().upgrade();
+        GetComponentInChildren<ControlByPlayerEye>().upgrade();
     }
     public bool atMaxLevel()
     {

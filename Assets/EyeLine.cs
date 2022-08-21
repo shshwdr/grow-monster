@@ -33,7 +33,7 @@ public class EyeLine : MonoBehaviour
     void Update()
     {
 
-        transform.rotation = Quaternion.Euler(0f, 0f, (endRotation - startRotation) / 2 * Mathf.Sin(Time.time * speed) + startRotation + (endRotation - startRotation) / 2);
+        transform.rotation = Quaternion.Euler(0f, 0f, (endRotation - startRotation) / 2 * Mathf.Sin(Time.time * speed*speedScale) + startRotation + (endRotation - startRotation) / 2);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -42,5 +42,18 @@ public class EyeLine : MonoBehaviour
         {
             collision.GetComponent<Human>().getDamage(1);
         }
+    }
+
+
+    float controlSpeed = 2;
+    float normalSpeed = 1;
+    float speedScale = 1;
+    public void speedUP()
+    {
+        speedScale = controlSpeed;
+    }
+    public void speedDown()
+    {
+        speedScale = normalSpeed;
     }
 }

@@ -14,7 +14,7 @@ public class MouthJoint : MonoBehaviour
 
     public void upgrade()
     {
-        GetComponent<Mouth>().upgrade();
+       // GetComponent<Mouth>().upgrade();
     }
     public bool atMaxLevel()
     {

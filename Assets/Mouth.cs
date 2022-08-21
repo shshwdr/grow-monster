@@ -9,15 +9,7 @@ public class Mouth : MonoBehaviour
     public float eatTimer;
     public Transform humanParent;
     GameObject eatingHuman;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-    public void upgrade()
-    {
-
-    }
+    
     public void eatHuman()
     {
         float cloestDis = 1000;
@@ -35,8 +27,11 @@ public class Mouth : MonoBehaviour
             closestEnemy.transform.parent = humanParent;
             closestEnemy.transform.localPosition = Vector3.zero;
             closestEnemy.GetComponent<Human>().kill();
-            closestEnemy.transform.DOJump(Vector3.zero, 0.5f, 5, eatTime);
+            //closestEnemy.transform.DOJump(Vector3.zero, 0.5f, 5, eatTime);
+            closestEnemy.transform.DOShakeRotation(eatTime);
             eatingHuman = closestEnemy;
+            eatingHuman.GetComponent<Human>().spriteRender.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+            eatingHuman.GetComponent<Human>().weaponRender.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
         }
     }
 

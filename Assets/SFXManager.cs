@@ -17,6 +17,11 @@ public class SFXManager : Singleton<SFXManager>
     public AudioClip humanWinClip;
     public AudioClip monsterWinClip;
 
+
+    public AudioClip castClip;
+    public AudioClip healClip;
+    public AudioClip collectClip;
+
     AudioSource audioSource;
 
     private void Awake()
@@ -57,6 +62,18 @@ public class SFXManager : Singleton<SFXManager>
     public void playMonsterWinClip()
     {
         audioSource.PlayOneShot(monsterWinClip);
+    }
+    public void playcastClip()
+    {
+        audioSource.PlayOneShot(castClip);
+    }
+    public void playhealClip()
+    {
+        audioSource.PlayOneShot(healClip);
+    }
+    public void playcollectClip()
+    {
+        audioSource.PlayOneShot(collectClip);
     }
 
     // Start is called before the first frame update

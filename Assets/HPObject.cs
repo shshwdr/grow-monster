@@ -21,6 +21,10 @@ public class HPObject : MonoBehaviour
         {
             die();
         }
+        if (currentHP > maxhp)
+        {
+            currentHP = maxhp;
+        }
     }
 
     public virtual void die()

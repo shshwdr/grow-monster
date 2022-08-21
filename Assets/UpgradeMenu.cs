@@ -9,6 +9,8 @@ public class UpgradeMenu : MonoBehaviour
     UIView view;
 
 
+    public RectTransform scrollTransform;
+
     private void Awake()
     {
         view = GetComponent<UIView>();
@@ -18,6 +20,8 @@ public class UpgradeMenu : MonoBehaviour
     {
         updateUI();
         view.Show();
+
+        scrollTransform.position = new Vector3(0, 0, 0);
     }
 
     void updateUI()
@@ -43,6 +47,10 @@ public class UpgradeMenu : MonoBehaviour
                 upgradeCells[i].init(item);
                 i++;
             }
+        }
+        for (; i < upgradeCells.Length; i++)
+        {
+            upgradeCells[i].gameObject.SetActive(false);
         }
     }
 

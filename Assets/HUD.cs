@@ -1,3 +1,4 @@
+using Doozy.Engine.UI;
 using Pool;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,8 +8,19 @@ using UnityEngine.UI;
 public class HUD : MonoBehaviour
 {
 
+    bool hasShownHUD = false;
     public Image hpImage;
     public Text levelText;
+    public UIView uiview;
+
+    void show()
+    {
+        if (!hasShownHUD)
+        {
+            hasShownHUD = true;
+            uiview.Show();
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +28,7 @@ public class HUD : MonoBehaviour
         updateLevel();
         EventPool.OptIn<float, float>("changeHP", changeHP);
         EventPool.OptIn("changeLevel", updateLevel);
+        EventPool.OptIn("startBuild",show);
     }
 
     void updateLevel()

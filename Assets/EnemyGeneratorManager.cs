@@ -8,6 +8,7 @@ public class EnemyGeneratorInfo
     public int villager;
     public int soldier;
     public int magic;
+    public int lady;
 }
 public class EnemyGeneratorManager : Singleton<EnemyGeneratorManager>
 {
@@ -32,6 +33,18 @@ public class EnemyGeneratorManager : Singleton<EnemyGeneratorManager>
         StartCoroutine(generateYield());
     }
 
+    void addEnemy(string type)
+    {
+        var go = Instantiate(enemyPrefab, transform.position + new Vector3(generateDistance + Random.Range(-2f, 2f), Random.Range(-0.3f, 0.3f), 0), Quaternion.identity);
+        generateDistance = -generateDistance;
+        go.GetComponent<Human>().init(type);
+        enemies.Add(go);
+        if (generateDistance < 0)
+        {
+            go.transform.localScale = new Vector3(-1, 1, 1);
+        }
+    }
+
     IEnumerator generateYield()
     {
         yield return new WaitForSeconds(0.1f);
@@ -40,27 +53,27 @@ public class EnemyGeneratorManager : Singleton<EnemyGeneratorManager>
         for (int i = 0; i < currentInfo.villager; i++)
         {
             yield return new WaitForSeconds(0.1f);
-            var go = Instantiate(enemyPrefab, transform.position + new Vector3(generateDistance + Random.Range(-2f, 2f), Random.Range(-0.3f, 0.3f), 0), Quaternion.identity);
-            generateDistance = -generateDistance;
-            go.GetComponent<Human>().init("villager");
-            enemies.Add(go);
+            addEnemy("villager");
         }
         for (int i = 0; i < currentInfo.magic; i++)
         {
             yield return new WaitForSeconds(0.1f);
-            var go = Instantiate(enemyPrefab, transform.position + new Vector3(generateDistance + Random.Range(-2f, 2f), Random.Range(-0.3f, 0.3f), 0), Quaternion.identity);
-            generateDistance = -generateDistance;
-            go.GetComponent<Human>().init("magic");
-            enemies.Add(go);
+            addEnemy("magic");
+            GameLoopManager.Instance.addDialogue( false,"magic");
         }
         for (int i = 0; i < currentInfo.soldier; i++)
         {
             yield return new WaitForSeconds(0.1f);
-            var go = Instantiate(enemyPrefab, transform.position + new Vector3(generateDistance + Random.Range(-2f, 2f), Random.Range(-0.3f, 0.3f), 0), Quaternion.identity);
-            generateDistance = -generateDistance;
-            go.GetComponent<Human>().init("soldier");
-            enemies.Add(go);
+            addEnemy("soldier");
         }
+
+
+        for (int i = 0; i < currentInfo.lady; i++)
+        {
+            yield return new WaitForSeconds(0.1f);
+            addEnemy("lady");
+        }
+
     }
 
     public void removeEnemy(GameObject go)

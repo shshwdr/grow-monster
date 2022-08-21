@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Pool;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,6 +17,8 @@ public class MonsterManager : HPObject
     public List<AntennaJoint> lockedAntennaJoints;
 
     public List<GameObject> bodys;
+
+    public SpriteRenderer[] bodyRenders;
     bool hasMouth = false;
     public bool hasAtenna = false;
     public void upgrade(MonsterUpgradeInfo info)
@@ -44,6 +47,8 @@ public class MonsterManager : HPObject
                 lockedArmJoints.Add(newJoint);
 
                 UpgradeMonsterManager.Instance.monsterUpgradeDict["Improve Arm"].maxLevel += 2;
+
+                GameLoopManager.Instance.addDialogue(false, "battleWithArm_start");
                 break;
             case "Improve Arm":
                 var joint4 = unlockedArmJoints[Random.Range(0, unlockedArmJoints.Count)];
@@ -53,6 +58,7 @@ public class MonsterManager : HPObject
                     unlockedArmJoints.Remove(joint4);
                 }
 
+                GameLoopManager.Instance.addDialogue(false, "magic");
                 //UpgradeMonsterManager.Instance.monsterUpgradeDict["Improve Arm"].maxLevel -= 1;
                 break;
             case "Add Eye":
@@ -60,6 +66,7 @@ public class MonsterManager : HPObject
                 var joint = lockedEyeJoints[Random.Range(0, lockedEyeJoints.Count)];
                 joint.init();
                 lockedEyeJoints.Remove(joint);
+                unlockedEyeJoints.Add(joint);
                 break;
 
             case "Improve Eye":
@@ -77,20 +84,21 @@ public class MonsterManager : HPObject
                 hasMouth = true;
                 break;
 
-            case "Improve Mouth":
-                var joint6 = unlockedMouthJoints[Random.Range(0, unlockedMouthJoints.Count)];
-                joint6.upgrade();
-                if (joint6.atMaxLevel())
-                {
-                    unlockedMouthJoints.Remove(joint6);
-                }
-                break;
+            //case "Improve Mouth":
+            //    var joint6 = unlockedMouthJoints[Random.Range(0, unlockedMouthJoints.Count)];
+            //    joint6.upgrade();
+            //    if (joint6.atMaxLevel())
+            //    {
+            //        unlockedMouthJoints.Remove(joint6);
+            //    }
+            //    break;
 
             case "Add Antenna":
                 var joint7 = lockedAntennaJoints[Random.Range(0, lockedAntennaJoints.Count)];
                 joint7.init();
                 lockedAntennaJoints.Remove(joint7);
                 hasAtenna = true;
+                GameLoopManager.Instance.addDialogue(false, "battleWithEar");
                 break;
             case "Add Body":
                 bodys[info.currentLevel].SetActive(true);
@@ -123,11 +131,16 @@ public class MonsterManager : HPObject
         unlockedArmJoints = new List<ArmJoint>();
     }
 
+    public float generalShakeTIme = 3;
+    public float generalShakeIntense = 0.2f;
+    public float hitShakeIntense = 0.4f;
+
 
     public override void Start()
     {
         base.Start();
         findAllJoints();
+        transform.DOShakeScale(generalShakeTIme, generalShakeIntense,1,90,false).SetLoops(-1);
     }
 
     public override void die()
@@ -140,13 +153,26 @@ public class MonsterManager : HPObject
 
     public override void getDamage(float d)
     {
+        if (GameLoopManager.Instance.isInBuildMode)
+        {
+            return;
+        }
         base.getDamage(d);
+
+        PopupTextManager.Instance.ShowPopupNumber(bodyRenders[0].transform.position, (int)d, d);
         EventPool.Trigger<float, float>("changeHP", currentHP,maxhp);
 
         if (hasMouth)
         {
 
             SFXManager.Instance.playMonsterHurtClip();
+        }
+
+        foreach(var render in bodyRenders)
+        {
+            render.transform.DOKill();
+            render.transform.localScale = Vector3.one;
+            render.transform.DOShakeScale(0.3f, hitShakeIntense);
         }
     }
 
@@ -162,4 +188,7 @@ public class MonsterManager : HPObject
     {
         
     }
+
+
+
 }

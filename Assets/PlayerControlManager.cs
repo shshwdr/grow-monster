@@ -40,10 +40,10 @@ public class PlayerControlManager : Singleton<PlayerControlManager>
         {
             return false;
         }
-        //if (GameLoopManager.Instance.isInBuildMode)
-        //{
-        //    return false;
-        //}
+        if (GameLoopManager.Instance.isInBuildMode)
+        {
+            return false;
+        }
         if (timer <= 0)
         {
             return true;

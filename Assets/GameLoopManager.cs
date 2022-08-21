@@ -1,3 +1,4 @@
+using PixelCrushers.DialogueSystem;
 using Pool;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,6 +9,13 @@ public class GameLoopManager : Singleton<GameLoopManager>
 {
     public  bool isInBuildMode = false;
     public MonsterManager monster;
+
+    public List<string> battleStartDialogue = new List<string>();
+    public List<string> battleEndDialogue = new List<string>();
+    public HashSet<string> dialogueSet = new HashSet<string>();
+
+    int battleIndex = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,13 +25,19 @@ public class GameLoopManager : Singleton<GameLoopManager>
         //when battle end, start build mode
         // when finish build, start battle
         monster = GameObject.FindObjectOfType<MonsterManager>();
-        //StartCoroutine(startBattleLoop());
-
         StartCoroutine(startBuildMode());
+
+        //StartCoroutine(startBattleLoop());
     }
 
     IEnumerator  startBattleLoop()
     {
+        if (battleStartDialogue.Count > 0)
+        {
+            DialogueManager.StartConversation(battleStartDialogue[0]);
+            battleStartDialogue.RemoveAt(0);
+        }
+
         isInBuildMode = false;
         yield return new WaitForSeconds(0.1f);
         EventPool.Trigger("startBattle");
@@ -31,6 +45,13 @@ public class GameLoopManager : Singleton<GameLoopManager>
         EnemyGeneratorManager.Instance.generate();
         monster.restoreFromBattle();
         MusicManager.Instance.startBattle();
+
+        if(battleIndex == 0)
+        {
+            addDialogue(true, "battle1_end"); 
+        }
+
+        battleIndex++;
     }
 
     public void battleEnd(bool win)
@@ -55,8 +76,31 @@ public class GameLoopManager : Singleton<GameLoopManager>
         StartCoroutine( startBuildMode());
     }
 
+    public void addDialogue(bool isEnd, string dialogue)
+    {
+        if(dialogueSet.Contains(dialogue)){
+            return;
+        }
+        if (isEnd)
+        {
+            battleEndDialogue.Add(dialogue);
+        }
+        else
+        {
+            battleStartDialogue.Add(dialogue);
+        }
+        dialogueSet.Add(dialogue);
+    }
+
     IEnumerator startBuildMode()
     {
+
+        if (battleEndDialogue.Count > 0)
+        {
+            DialogueManager.StartConversation(battleEndDialogue[0]);
+            battleEndDialogue.RemoveAt(0);
+        }
+
         isInBuildMode = true;
         yield return new WaitForSeconds(0.1f);
         EventPool.Trigger("updateResource");

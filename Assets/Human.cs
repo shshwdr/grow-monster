@@ -8,6 +8,8 @@ public class Human : HPObject
 
     public SpriteRenderer spriteRender;
 
+    public SpriteRenderer weaponRender;
+
     float damageTime = 0.3f;
     float damageTimer = 0f;
     Animator animator;
@@ -16,6 +18,8 @@ public class Human : HPObject
     bool startAttack = false;
 
     float attackTimer = 0;
+
+    public string type;
     // Start is called before the first frame update
     override public void Start()
     {
@@ -26,8 +30,9 @@ public class Human : HPObject
 
     public void init(string type)
     {
-      
-        spriteRender.sprite = Resources.Load<Sprite>("human/"+type);
+        this.type = type;
+        spriteRender.sprite = Resources.Load<Sprite>("human/" + type);
+        weaponRender.sprite = Resources.Load<Sprite>("human/" + type+"_w");
         info = EnemyManager.Instance.getEnemyInfo(type);
         maxhp = currentHP = info.hp;
     }
@@ -55,9 +60,28 @@ public class Human : HPObject
                 attackTimer = 0;
                 //attack
                 //transform.DOShakeRotation(0.3f);
-                Debug.Log("attack!");
-                GameLoopManager.Instance.monster.getDamage(info.attack);
-                SFXManager.Instance.playHumanAttackClip();
+                // Debug.Log("attack!");
+                if (info.attackRange > 2)
+                {
+
+                    var go = Instantiate(Resources.Load<GameObject>("human/" + type), transform.position, Quaternion.identity);
+                    go.GetComponent<HealBullet>().damage = (int)info.attack;
+                    go.GetComponent<HealBullet>().targetTrans = EnemyGeneratorManager.Instance.enemies[Random.Range(0, EnemyGeneratorManager.Instance.enemies.Count)].transform;
+                    SFXManager.Instance.playhealClip();
+                }
+                else if (info.attackRange > 1)
+                {
+
+                   var go = Instantiate( Resources.Load<GameObject>("human/" + type),transform.position,Quaternion.identity);
+                    go.GetComponent<Bullet>().damage = (int)info.attack;
+                    SFXManager.Instance.playcastClip();
+                }
+                else
+                {
+
+                    GameLoopManager.Instance.monster.getDamage(info.attack);
+                    SFXManager.Instance.playHumanAttackClip();
+                }
                 //spriteRender.transform.DOJump(new Vector3(0, 0, 0), 1, 1, 0.2f);
                 spriteRender.transform.DOShakeScale(0.3f);
             }
@@ -81,13 +105,24 @@ public class Human : HPObject
         if (damageTimer > damageTime)
         {
 
-             damageTimer = 0;
+            damageTimer = 0;
             base.getDamage(d);
-            animator.SetTrigger("hit");
-            if (!isDead)
+            if (d > 0)
             {
 
-                SFXManager.Instance.playHitClip();
+                animator.SetTrigger("hit");
+
+                if (!isDead)
+                {
+
+                    SFXManager.Instance.playHitClip();
+                }
+                PopupTextManager.Instance.ShowPopupNumber(transform.position, (int)d, d);
+            }
+            else
+            {
+                PopupTextManager.Instance.ShowPopupNumber(transform.position, (int)-d, d);
+
             }
         }
     }
