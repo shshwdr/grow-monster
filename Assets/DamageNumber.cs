@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 public class DamageNumber : MonoBehaviour
 {
-    public TMP_Text numberText;
+    public Text numberText;
     public void init(string value, float scale = 1)
     {
         numberText.transform.localPosition = Vector3.zero;

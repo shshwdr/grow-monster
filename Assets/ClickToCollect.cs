@@ -19,9 +19,9 @@ public class ClickToCollect : MonoBehaviour
     void Start()
     {
     }
-    static public GameObject createClickToCollectItem(List<PairInfo<int>> r, Vector3 pos,bool needClick = true)
+    static public GameObject createClickToCollectItem(List<PairInfo<int>> r, Vector3 pos,bool needClick = false)
     {
-        GameObject collectInBattlePrefab = Resources.Load<GameObject>("prefabs/clickToCollectBattle");
+        GameObject collectInBattlePrefab = Resources.Load<GameObject>("prefabs/ToCollectItem");
         var go = Instantiate(collectInBattlePrefab, pos, Quaternion.identity,CollectionManager.Instance.transform);
         var box = go.GetComponentInChildren<ClickToCollect>();
         //box.dropboxType = DropboxType.resource;
@@ -88,9 +88,9 @@ public class ClickToCollect : MonoBehaviour
             //else
             {
 
-                //CollectionManager.Instance.AddCoins(transform.position, resource);
+                CollectionManager.Instance.AddCoins(transform.position, resource);
             }
-            ResourceManager.Instance.changeAmount(resource[0].Key, resource[0].Value);
+           // ResourceManager.Instance.changeAmount(resource[0].Key, resource[0].Value);
         }
         Destroy(fullGameobject);
     }

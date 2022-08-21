@@ -6,6 +6,26 @@ using UnityEngine;
 public class ResourceMenu : MonoBehaviour
 {
     ResourceCell[] cells;
+
+    public Transform getCellTransform(string type)
+    {
+        switch (type)
+        {
+            case "meat":
+                return cells[0].transform;
+                break;
+            case "soul":
+                return cells[1].transform;
+                break;
+            case "metal":
+                return cells[2].transform;
+                break;
+
+        }
+        return transform;
+
+    }
+
     // Start is called before the first frame update
     void Start()
     {

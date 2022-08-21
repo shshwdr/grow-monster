@@ -14,8 +14,10 @@ public class EyeJoint : MonoBehaviour
         if (!OnRight)
         {
             transform.localScale = new Vector3(-1, 1, 1);
+
         }
         var go = Instantiate(eyePrefabs[0], transform.position, transform.rotation, transform);
+
     }
 
 

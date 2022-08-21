@@ -20,6 +20,16 @@ public class ControlByPlayerEye : MonoBehaviour
         lines[lineIndex].gameObject.SetActive(true);
         OnMouseExit();
         EventPool.OptIn("stopControl", stopControl);
+
+
+        if (!GetComponentInParent<EyeJoint>().OnRight)
+        {
+
+            foreach (var line in GetComponentsInChildren<EyeLine>(true))
+            {
+                line.endRotation = -line.endRotation;
+            }
+        }
     }
 
     // Update is called once per frame

@@ -13,6 +13,8 @@ public class HUD : MonoBehaviour
     public Text levelText;
     public UIView uiview;
 
+
+
     void show()
     {
         if (!hasShownHUD)

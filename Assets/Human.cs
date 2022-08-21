@@ -139,9 +139,11 @@ public class Human : HPObject
         SFXManager.Instance.playDieClip();
         base.die();
         EnemyGeneratorManager.Instance.removeEnemy(gameObject);
-
-        ResourceManager.Instance.changeAmount(info.dropItem, info.dropAmount*( Random.Range(1,4)));
-
+        //ResourceManager.Instance.changeAmount(info.dropItem, info.dropAmount*( Random.Range(1,4)));
+        var test = new List<PairInfo<int>>() { };
+        test.Add(new PairInfo<int>(info.dropItem, Random.Range(1, 4)));
+        //CollectionManager.Instance.AddCoins(transform.position,test);
+        ClickToCollect.createClickToCollectItem(test, transform.position);
         Destroy(gameObject);
     }
 }
