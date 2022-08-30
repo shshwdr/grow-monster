@@ -9,6 +9,12 @@ public class EnemyGeneratorInfo
     public int soldier;
     public int magic;
     public int lady;
+    public int soldier2;
+    public int soldier3;
+    public int witch;
+    public int nohair;
+    public int dark;
+    public int cow;
 }
 public class EnemyGeneratorManager : Singleton<EnemyGeneratorManager>
 {
@@ -47,9 +53,29 @@ public class EnemyGeneratorManager : Singleton<EnemyGeneratorManager>
 
     IEnumerator generateYield()
     {
+        var currentInfo = enemyGeneratorInfos[currentLevel];
+        if (currentInfo.magic > 0)
+        {
+            GameLoopManager.Instance.addDialogue(false, "magic");
+        }
+        if (currentInfo.soldier > 0)
+        {
+            GameLoopManager.Instance.addDialogue(false, "soldier");
+        }
+        if (currentInfo.lady > 0)
+        {
+            GameLoopManager.Instance.addDialogue(false, "lady");
+        }
+        if (currentInfo.soldier2 > 0)
+        {
+            GameLoopManager.Instance.addDialogue(false, "soldier2");
+        }
+        if (currentInfo.dark > 0)
+        {
+            GameLoopManager.Instance.addDialogue(false, "dark");
+        }
         yield return new WaitForSeconds(0.1f);
         enemies = new List<GameObject>();
-        var currentInfo = enemyGeneratorInfos[currentLevel];
         for (int i = 0; i < currentInfo.villager; i++)
         {
             yield return new WaitForSeconds(0.1f);
@@ -59,7 +85,6 @@ public class EnemyGeneratorManager : Singleton<EnemyGeneratorManager>
         {
             yield return new WaitForSeconds(0.1f);
             addEnemy("magic");
-            GameLoopManager.Instance.addDialogue( false,"magic");
         }
         for (int i = 0; i < currentInfo.soldier; i++)
         {
@@ -72,6 +97,48 @@ public class EnemyGeneratorManager : Singleton<EnemyGeneratorManager>
         {
             yield return new WaitForSeconds(0.1f);
             addEnemy("lady");
+            GameLoopManager.Instance.addDialogue(false, "lady");
+        }
+
+
+        for (int i = 0; i < currentInfo.soldier2; i++)
+        {
+            yield return new WaitForSeconds(0.1f);
+            addEnemy("soldier2");
+            GameLoopManager.Instance.addDialogue(false, "soldier2");
+        }
+
+        for (int i = 0; i < currentInfo.dark; i++)
+        {
+            yield return new WaitForSeconds(0.1f);
+            addEnemy("dark");
+            GameLoopManager.Instance.addDialogue(false, "dark");
+        }
+
+        for (int i = 0; i < currentInfo.witch; i++)
+        {
+            yield return new WaitForSeconds(0.1f);
+            addEnemy("witch");
+            GameLoopManager.Instance.addDialogue(false, "witch");
+        }
+        for (int i = 0; i < currentInfo.nohair; i++)
+        {
+            yield return new WaitForSeconds(0.1f);
+            addEnemy("nohair");
+            GameLoopManager.Instance.addDialogue(false, "nohair");
+        }
+
+        for (int i = 0; i < currentInfo.cow; i++)
+        {
+            yield return new WaitForSeconds(0.1f);
+            addEnemy("cow");
+            GameLoopManager.Instance.addDialogue(false, "cow");
+        }
+        for (int i = 0; i < currentInfo.soldier3; i++)
+        {
+            yield return new WaitForSeconds(0.1f);
+            addEnemy("soldier3");
+            GameLoopManager.Instance.addDialogue(false, "soldier3");
         }
 
     }

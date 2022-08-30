@@ -11,10 +11,25 @@ public class Arm : MonoBehaviour
     public Sprite[] colors1;
     public Sprite[] colors2;
     public Sprite[] colors3;
+
+    public float specialStart = 0;
+    public float specialEnd = 90;
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        if (transform.parent. GetComponent<ArmJoint>().OnRight)
+        {
+            GetComponentInChildren<ArmJoint>().OnRight = true;
+            //GetComponentInChildren<ArmJoint>().transform.localRotation.SetEulerAngles( new Vector3(0, 0, 30));
+            GetComponentInChildren<ArmJoint>().startRotation = specialStart;
+            GetComponentInChildren<ArmJoint>().endRotation = specialEnd;
+        }
+        else
+        {
+
+            GetComponentInChildren<ArmJoint>().OnRight = false;
+        }
     }
 
     public void init(int level,int depth)

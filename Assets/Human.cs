@@ -144,6 +144,10 @@ public class Human : HPObject
         test.Add(new PairInfo<int>(info.dropItem, Random.Range(1, 4)));
         //CollectionManager.Instance.AddCoins(transform.position,test);
         ClickToCollect.createClickToCollectItem(test, transform.position);
+        GameLoopManager.Instance.addDialogue(true, type + "_die");
         Destroy(gameObject);
+
+
+
     }
 }

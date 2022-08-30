@@ -10,44 +10,58 @@ public class UpgradeMenu : MonoBehaviour
 
 
     public RectTransform scrollTransform;
+    bool isShown = false;
 
     private void Awake()
     {
         view = GetComponent<UIView>();
         EventPool.OptIn("startBuild", show);
+        EventPool.OptIn("updateResource", updateUI);
     }
     void show()
     {
-        updateUI();
         view.Show();
-
+        isShown = true;
+        updateUI();
         scrollTransform.position = new Vector3(0, 0, 0);
     }
 
     void updateUI()
     {
-        var upgradeCells = GetComponentsInChildren<UpgradeCell>();
+        if (!isShown)
+        {
+            return;
+        }
+
+        var upgradeCells = GetComponentsInChildren<UpgradeCell>(true);
+        if (upgradeCells.Length <= 0)
+        {
+            return;
+        }
         var buildItems = UpgradeMonsterManager.Instance.monsterUpgrades;
         int i = 0;
         foreach(var item in buildItems)
         {
-            if (item.isUpgradable())
+            //if (item.isUpgradable())
             {
-
+                if (i >= upgradeCells.Length)
+                {
+                    return;
+                }
                 upgradeCells[i].init(item);
                 i++;
             }
         }
 
-        foreach (var item in buildItems)
-        {
-            if (!item.isUpgradable())
-            {
+        //foreach (var item in buildItems)
+        //{
+        //    if (!item.isUpgradable())
+        //    {
 
-                upgradeCells[i].init(item);
-                i++;
-            }
-        }
+        //        upgradeCells[i].init(item);
+        //        i++;
+        //    }
+        //}
         for (; i < upgradeCells.Length; i++)
         {
             upgradeCells[i].gameObject.SetActive(false);
@@ -61,6 +75,7 @@ public class UpgradeMenu : MonoBehaviour
     }
     void hide()
     {
+        isShown = false;
         view.Hide();
     }
     // Start is called before the first frame update

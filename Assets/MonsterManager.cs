@@ -44,6 +44,10 @@ public class MonsterManager : HPObject
                 unlockedArmJoints.Add(joint3);
                 var child = joint3.transform.GetChild(0);
                 var newJoint = child.GetComponentInChildren<ArmJoint>();
+                if(newJoint == null)
+                {
+                    Debug.LogError("?");
+                }
                 lockedArmJoints.Add(newJoint);
 
                 UpgradeMonsterManager.Instance.monsterUpgradeDict["Improve Arm"].maxLevel += 2;
@@ -140,7 +144,7 @@ public class MonsterManager : HPObject
     {
         base.Start();
         findAllJoints();
-        transform.DOShakeScale(generalShakeTIme, generalShakeIntense,1,90,false).SetLoops(-1);
+        transform.DOShakeScale(generalShakeTIme, generalShakeIntense,1,90,false).SetLoops(-1).SetUpdate(true);
     }
 
     public override void die()

@@ -25,19 +25,14 @@ public class GameLoopManager : Singleton<GameLoopManager>
         //when battle end, start build mode
         // when finish build, start battle
         monster = GameObject.FindObjectOfType<MonsterManager>();
-        StartCoroutine(startBuildMode());
+       // StartCoroutine(startBuildMode());
 
-        //StartCoroutine(startBattleLoop());
+        MusicManager.Instance.startBuild();
+        StartCoroutine(startBattleLoop());
     }
 
     IEnumerator  startBattleLoop()
     {
-        if (battleStartDialogue.Count > 0)
-        {
-            DialogueManager.StartConversation(battleStartDialogue[0]);
-            battleStartDialogue.RemoveAt(0);
-        }
-
         isInBuildMode = false;
         yield return new WaitForSeconds(0.1f);
         EventPool.Trigger("startBattle");
@@ -50,6 +45,14 @@ public class GameLoopManager : Singleton<GameLoopManager>
         {
             addDialogue(true, "battle1_end"); 
         }
+
+        
+        if (battleStartDialogue.Count > 0)
+        {
+            DialogueManager.StartConversation(battleStartDialogue[0]);
+            battleStartDialogue.RemoveAt(0);
+        }
+
 
         battleIndex++;
     }
@@ -94,6 +97,7 @@ public class GameLoopManager : Singleton<GameLoopManager>
 
     IEnumerator startBuildMode()
     {
+        MusicManager.Instance.startBuild();
 
         if (battleEndDialogue.Count > 0)
         {
@@ -107,7 +111,6 @@ public class GameLoopManager : Singleton<GameLoopManager>
         monster.restoreFromBattle();
         EventPool.Trigger("startBuild");
 
-        MusicManager.Instance.startBuild();
     }
 
     public void stopBuildMode()
